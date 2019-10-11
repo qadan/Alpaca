@@ -67,8 +67,23 @@ public class AS2Object {
         this.url = url;
     }
 
+    /**
+     * @param   isNewVersion  Whether it is a new version
+     */
+    public void setIsNewVersion(final Boolean isNewVersion) {
+      this.isNewVersion = isNewVersion;
+    }
+
+    /**
+     * @return   Whether it is a new version
+     */
+    public Boolean getIsNewVersion() {
+      return isNewVersion;
+    }
+
     private String type;
     private String id;
     private AS2Url[] url;
+    private Boolean isNewVersion;
 
 }

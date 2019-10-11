@@ -119,6 +119,11 @@ public class FcrepoIndexer extends RouteBuilder {
                         "Error indexing resource in fcrepo: ${exception.message}\n\n${exception.stacktrace}"
                 );
         from("{{node.stream}}")
+          .routeId("FcrepoIndexerNode")
+          .unmarshal().json(JsonLibrary.Jackson, AS2Event.class)
+          .log("${body}");
+        /*
+        from("{{node.stream}}")
                 .routeId("FcrepoIndexerNode")
 
                 // Parse the event into a POJO.
@@ -137,14 +142,14 @@ public class FcrepoIndexer extends RouteBuilder {
                 //pass it to milliner
                 .toD(getMillinerBaseUrl() + "node/${exchangeProperty.uuid}?connectionClose=true")
                 .choice()
-                        .when().simple("${exchangeProperty.event.object.isNewVersion} == 1")
+                        .when().simple("${exchangeProperty.event.object.isNewVersion}")
                                 //pass it to milliner
                                 .toD(
                                         getMillinerBaseUrl() + "version/${exchangeProperty.uuid}?connectionClose=true"
                                     ).endChoice();
 
 
-
+*/
         from("{{node.delete.stream}}")
                 .routeId("FcrepoIndexerDeleteNode")
                 .onException(HttpOperationFailedException.class)
